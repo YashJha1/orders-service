@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @FeignClient(name = "catalog-service", url = "http://localhost:8080/v1/products")
 public interface CatalogClient {
+    @GetMapping("/v1/products/{sku}")
+    ProductDto getProductBySku(@PathVariable("sku") String sku);
 
     @GetMapping("/products/{productId}")
     CatalogResponse getProductById(@PathVariable("productId") Long productId);
