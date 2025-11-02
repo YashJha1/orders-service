@@ -11,7 +11,7 @@ public interface CatalogClient {
     ProductDto getProductBySku(@PathVariable("sku") String sku);
 }
 */
-
+/*
 package com.eci.orderservice.client;
 
 import com.eci.orderservice.dto.CatalogResponse;
@@ -26,5 +26,25 @@ public interface CatalogClient {
 
     @GetMapping("/products/{productId}")
     CatalogResponse getProductById(@PathVariable("productId") Long productId);
+}
+*/
+
+package com.eci.orderservice.client;
+
+import com.eci.orderservice.dto.ProductDto;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+@FeignClient(name = "catalog-service", url = "http://localhost:8080")
+public interface CatalogClient {
+
+    // Fetch product by SKU (used in orders)
+    @GetMapping("/v1/products/{sku}")
+    ProductDto getProductBySku(@PathVariable("sku") String sku);
+
+    // (Optional) Fetch by ID, if needed
+    @GetMapping("/v1/products/id/{productId}")
+    ProductDto getProductById(@PathVariable("productId") Long productId);
 }
 
